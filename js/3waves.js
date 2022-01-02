@@ -3,7 +3,7 @@ const PI = Math.PI;
 let canvas = document.getElementById("canvas");
 let ctx = canvas.getContext("2d");
 
-canvas.style.background = 'url("images/xyaxis2.jpg")';
+canvas.style.background = 'url("images/xyaxis3.jpg")';
 
 let playing = false;
 let show = true;
@@ -72,9 +72,11 @@ function draw() {
 function play() {
     if (playing) return;
     playing = true;
+    /*
     document.querySelectorAll("input").forEach((elem) => {
         elem.disabled = true;
     });
+    */
     return setInterval(() => {
         time++;
         ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
@@ -88,7 +90,7 @@ function play() {
         if (w1.show) w1.draw();
         if (w2.show) w2.draw();
         if (w3.show) w3.draw();
-        if(show) draw();
+        if (show) draw();
     }, 1000 / 60);
 }
 
@@ -110,10 +112,12 @@ function stop(id) {
         elem.disabled = false;
     });
     recheck();
+    /*
     if (w1.show) w1.draw();
     if (w2.show) w2.draw();
     if (w3.show) w3.draw();
-    if(show) draw();
+    if (show) draw();
+    */
 }
 
 function playClicked() {
@@ -123,30 +127,42 @@ function playClicked() {
 
 function redraw() {
     stop(playid);
+    /*
     if (w1.show) w1.draw();
     if (w2.show) w2.draw();
     if (w3.show) w3.draw();
-    if(show) draw();
+    if (show) draw();
+    */
 }
 
 function recheck() {
     let w1_V = Number(document.getElementById("w1_V").value);
     let w1_L = Number(document.getElementById("w1_L").value);
     let w1_A = Number(document.getElementById("w1_A").value);
-    let w1_show = document.getElementById("w1_show").checked;
     let w2_V = Number(document.getElementById("w2_V").value);
     let w2_L = Number(document.getElementById("w2_L").value);
     let w2_A = Number(document.getElementById("w2_A").value);
-    let w2_show = document.getElementById("w2_show").checked;
     let w3_V = Number(document.getElementById("w3_V").value);
     let w3_L = Number(document.getElementById("w3_L").value);
     let w3_A = Number(document.getElementById("w3_A").value);
+    let w1_show = document.getElementById("w1_show").checked;
+    let w2_show = document.getElementById("w2_show").checked;
     let w3_show = document.getElementById("w3_show").checked;
     let sup_show = document.getElementById("sup_show").checked;
 
+    document.getElementById("show_w1_V").value = w1_V;
+    document.getElementById("show_w1_L").value = w1_L;
+    document.getElementById("show_w1_A").value = w1_A;
+    document.getElementById("show_w2_V").value = w2_V;
+    document.getElementById("show_w2_L").value = w2_L;
+    document.getElementById("show_w2_A").value = w2_A;
+    document.getElementById("show_w3_V").value = w3_V;
+    document.getElementById("show_w3_L").value = w3_L;
+    document.getElementById("show_w3_A").value = w3_A;
+
     ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
     yVals.fill(0);
-    delete w1, w2, w3;
+    delete w1, w2;
     w1 = new Wave(w1_V, w1_L, w1_A);
     w2 = new Wave(w2_V, w2_L, w2_A, 'red');
     w3 = new Wave(w3_V, w3_L, w3_A, 'green');
@@ -160,10 +176,10 @@ function recheck() {
         w3.yVals[i] = -50 * w3.A * Math.sin(PI / w3.L * ((4 * i - 50) / 150 - w3.V * time / 120));
         yVals[i] += w1.yVals[i] + w2.yVals[i] + w3.yVals[i];
     }
-    if(w1.show) w1.draw();
-    if(w2.show) w2.draw();
-    if(w3.show) w3.draw();
-    if(show) draw();
+    if (w1.show) w1.draw();
+    if (w2.show) w2.draw();
+    if (w3.show) w3.draw();
+    if (show) draw();
 }
 
 /*
@@ -173,9 +189,10 @@ for(let i = 0; i < 5; i++){
 */
 
 let w1 = new Wave(1, 1, 1);
-let w2 = new Wave(3, 1, -1, 'red');
-let w3 = new Wave(2, 2, 2, 'green');
+let w2 = new Wave(2, 1, -1, 'red');
+let w3 = new Wave(3, 1.5, 2, 'green');
 
+recheck();
 let playid = play();
 
 //setTimeout(() => pause(playid), 10000);

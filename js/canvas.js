@@ -6,6 +6,7 @@ let ctx = canvas.getContext("2d");
 canvas.style.background = 'url("images/xyaxis2.jpg")';
 
 let playing = false;
+let show = true;
 
 /*
 let bg = new Image();
@@ -71,9 +72,11 @@ function draw() {
 function play() {
     if (playing) return;
     playing = true;
+    /*
     document.querySelectorAll("input").forEach((elem) => {
         elem.disabled = true;
     });
+    */
     return setInterval(() => {
         time++;
         ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
@@ -85,7 +88,7 @@ function play() {
         }
         if (w1.show) w1.draw();
         if (w2.show) w2.draw();
-        draw();
+        if (show) draw();
     }, 1000 / 60);
 }
 
@@ -109,7 +112,7 @@ function stop(id) {
     recheck();
     if (w1.show) w1.draw();
     if (w2.show) w2.draw();
-    draw();
+    if (show) draw();
 }
 
 function playClicked() {
@@ -121,35 +124,43 @@ function redraw() {
     stop(playid);
     if (w1.show) w1.draw();
     if (w2.show) w2.draw();
-    draw();
+    if (show) draw();
 }
 
 function recheck() {
     let w1_V = Number(document.getElementById("w1_V").value);
     let w1_L = Number(document.getElementById("w1_L").value);
     let w1_A = Number(document.getElementById("w1_A").value);
-    let w1_show = document.getElementById("w1_show").checked;
     let w2_V = Number(document.getElementById("w2_V").value);
     let w2_L = Number(document.getElementById("w2_L").value);
     let w2_A = Number(document.getElementById("w2_A").value);
+    let w1_show = document.getElementById("w1_show").checked;
     let w2_show = document.getElementById("w2_show").checked;
+    let sup_show = document.getElementById("sup_show").checked;
+
+    document.getElementById("show_w1_V").value = w1_V;
+    document.getElementById("show_w1_L").value = w1_L;
+    document.getElementById("show_w1_A").value = w1_A;
+    document.getElementById("show_w2_V").value = w2_V;
+    document.getElementById("show_w2_L").value = w2_L;
+    document.getElementById("show_w2_A").value = w2_A;
 
     ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
     yVals.fill(0);
-    delete w1;
+    delete w1, w2;
     w1 = new Wave(w1_V, w1_L, w1_A);
-    w1.show = w1_show;
-    delete w2;
     w2 = new Wave(w2_V, w2_L, w2_A, 'red');
+    w1.show = w1_show;
     w2.show = w2_show;
+    show = sup_show;
     for (let i = 0; i < 250; i++) {
         w1.yVals[i] = -50 * w1.A * Math.sin(PI / w1.L * ((4 * i - 50) / 150 - w1.V * time / 120));
         w2.yVals[i] = -50 * w2.A * Math.sin(PI / w2.L * ((4 * i - 50) / 150 - w2.V * time / 120));
         yVals[i] += w1.yVals[i] + w2.yVals[i];
     }
-    if(w1.show) w1.draw();
-    if(w2.show) w2.draw();
-    draw();
+    if (w1.show) w1.draw();
+    if (w2.show) w2.draw();
+    if (show) draw();
 }
 
 /*
@@ -161,6 +172,7 @@ for(let i = 0; i < 5; i++){
 let w1 = new Wave(1, 1, 1);
 let w2 = new Wave(3, 1, -1, 'red');
 
+recheck();
 let playid = play();
 
 //setTimeout(() => pause(playid), 10000);

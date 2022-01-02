@@ -12,19 +12,29 @@
     <form style="display: inline-block;" id="form" onsubmit="return false;">
         <fieldset>
             <legend>파동</legend>
-            파동 1의 속력: <input type="text" id="w1_V" value="1" onkeyup="recheck();"><br>
-            파동 1의 파장: <input type="text" id="w1_L" value="1" onkeyup="recheck();"><br>
-            파동 1의 진폭: <input type="text" id="w1_A" value="1" onkeyup="recheck();"><br><br>
-            파동 2의 속력: <input type="text" id="w2_V" value="3" onkeyup="recheck();"><br>
-            파동 2의 파장: <input type="text" id="w2_L" value="1" onkeyup="recheck();"><br>
-            파동 2의 진폭: <input type="text" id="w2_A" value="-1" onkeyup="recheck();"><br><br>
-            파동 3의 속력: <input type="text" id="w3_V" value="2" onkeyup="recheck();"><br>
-            파동 3의 파장: <input type="text" id="w3_L" value="2" onkeyup="recheck();"><br>
-            파동 3의 진폭: <input type="text" id="w3_A" value="2" onkeyup="recheck();"><br><br>
+            파동 1의 속력: <input type="range" id="w1_V" value="1" oninput="recheck();" min="-5" max="5" step="0.5"><input
+                type="text" readonly id="show_w1_V"><br>
+            파동 1의 파장: <input type="range" id="w1_L" value="1" oninput="recheck();" min="0" max="5" step="0.5"><input
+                type="text" readonly id="show_w1_L"><br>
+            파동 1의 진폭: <input type="range" id="w1_A" value="1" oninput="recheck();" min="-2" max="2" step="1"><input
+                type="text" readonly id="show_w1_A"><br><br>
+            파동 2의 속력: <input type="range" id="w2_V" value="2" oninput="recheck();" min="-5" max="5" step="0.5"><input
+                type="text" readonly id="show_w2_V"><br>
+            파동 2의 파장: <input type="range" id="w2_L" value="1" oninput="recheck();" min="0" max="5" step="0.5"><input
+                type="text" readonly id="show_w2_L"><br>
+            파동 2의 진폭: <input type="range" id="w2_A" value="-1" oninput="recheck();" min="-2" max="2" step="1"><input
+                type="text" readonly id="show_w2_A"><br><br>
+            파동 3의 속력: <input type="range" id="w3_V" value="3" oninput="recheck();" min="-5" max="5" step="0.5"><input
+                type="text" readonly id="show_w3_V"><br>
+            파동 3의 파장: <input type="range" id="w3_L" value="1.5" oninput="recheck();" min="0" max="5" step="0.5"><input
+                type="text" readonly id="show_w3_L"><br>
+            파동 3의 진폭: <input type="range" id="w3_A" value="2" oninput="recheck();" min="-2" max="2" step="1"><input
+                type="text" readonly id="show_w3_A"><br><br>
             <label><input type="checkbox" id="w1_show" value="파동 1 표시" onchange="recheck();" checked>파동 1 표시</label>
             <label><input type="checkbox" id="w2_show" value="파동 2 표시" onchange="recheck();" checked>파동 2 표시</label>
             <label><input type="checkbox" id="w3_show" value="파동 3 표시" onchange="recheck();" checked>파동 3 표시</label><br>
-            <label><input type="checkbox" id="sup_show" value="중첩파 표시" onchange="recheck();" checked>중첩파 표시</label><br><br>
+            <label><input type="checkbox" id="sup_show" value="중첩파 표시" onchange="recheck();" checked>중첩파
+                표시</label><br><br>
             <button onclick="playClicked();">재생/일시정지</button>
             <button onclick="stop(playid);">정지</button>
             <button onclick="redraw();">확인</button>
