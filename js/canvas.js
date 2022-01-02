@@ -96,9 +96,11 @@ function pause(id) {
     if (!id) return;
     clearInterval(id);
     playing = false;
+    /*
     document.querySelectorAll("input").forEach((elem) => {
         elem.disabled = false;
     });
+    */
 }
 
 function stop(id) {
@@ -106,9 +108,11 @@ function stop(id) {
     clearInterval(id);
     time = 0;
     playing = false;
+    /*
     document.querySelectorAll("input").forEach((elem) => {
         elem.disabled = false;
     });
+    */
     recheck();
     if (w1.show) w1.draw();
     if (w2.show) w2.draw();
